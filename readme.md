@@ -38,7 +38,7 @@ _Como primer paso se debera ejecutar el codigo de setup para que el robot se asi
 
 ## Wiki 📖
 
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
+Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tpII/2022-A.3-Micro-Quadruple/wiki)
 
 ## Autores ✒️
 
