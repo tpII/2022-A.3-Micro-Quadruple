@@ -1,0 +1,35 @@
+@import "./global.scss";
+
+.app{
+    height: 100vh;
+    
+
+    .sections{
+        width: 100%;
+        //height: calc(100vh - 65px); //Height - TopBar
+        height: calc(100vh); //Height without Topbar
+        background-color: rgb(255, 255, 255);
+        position: relative;
+        //top: 65px;
+        top: 0px; //Without topbar
+
+        //Smooth links behavior
+        scroll-behavior: smooth;
+
+        //Scroll trought 'sections'
+        scroll-snap-type: y mandatory;
+
+        //Disable Scrollbar
+        scrollbar-width: none;  //For Firefox
+        &::-webkit-scrollbar{   display: none;} //For Chrome
+
+        // For each element inside
+        > * {
+            width: 100vw;
+            //height: calc(100vh - 65px); //Height - TopBar
+            height: calc(100vh); //Height without Topbar
+            scroll-snap-align: start;
+
+        }
+    }
+}
