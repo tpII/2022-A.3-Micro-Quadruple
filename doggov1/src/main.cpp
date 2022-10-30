@@ -53,7 +53,7 @@ int pulseWidth(int angle) {
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("8 channel Servo test!");
+  Serial.println("8 chaasdasdnnel Servo test!");
   digitalWrite(LED, LOW); // turn the LED on.
   delay(1000);            // wait for a second
   digitalWrite(LED, HIGH);// turn the LED off
@@ -102,12 +102,6 @@ void setServoPulse(uint8_t n, double pulse) {
 void loop() {
   // Drive each servo one at a time using setPWM()
   Serial.println(servonum);
-  for(int i=0; i<15;i++){
-    //pwm.setPWM(i+1, 0, pulseWidth(90));
-  }
-  // delay(2000);
-
-  // pwm.setPWM(0, 0, pulseWidth(90));
   //-----------------------------
   // PARADO
   standUp();  
@@ -115,35 +109,6 @@ void loop() {
   //-----------------------------
   layDown();
   delay(6000);
-  // for (volatile uint16_t angle = 20; angle<130;angle+=10) {
-  //   pwm.setPWM(13, 0, pulseWidth(angle));
-  //   pwm.setPWM(14, 0, pulseWidth(angle));
-  //   pwm.setPWM(15, 0, pulseWidth(angle));
-  //   delay(100);
-  // }
-
-  // delay(500);
-  // for (volatile uint16_t angle = 130; angle > 20; angle-=10) {
-  //   pwm.setPWM(13, 0, pulseWidth(angle));
-  //   pwm.setPWM(14, 0, pulseWidth(angle));
-  //   pwm.setPWM(15, 0, pulseWidth(angle));
-  // }
-
-  // delay(1000);
-
-  // Drive each servo one at a time using writeMicroseconds(), it's not precise due to calculation rounding!
-  // The writeMicroseconds() function is used to mimic the Arduino Servo library writeMicroseconds() behavior. 
-  // for (uint16_t microsec = USMIN; microsec < USMAX; microsec++) {
-  //   pwm.writeMicroseconds(servonum, microsec);
-  // }
-
-  // delay(500);
-  // for (uint16_t microsec = USMAX; microsec > USMIN; microsec--) {
-  //   pwm.writeMicroseconds(servonum, microsec);
-  // }
-
-  servonum++;
-  if (servonum > 15) servonum = 13; // Testing the first 8 servo channels
 }
 
 void layDown() {
