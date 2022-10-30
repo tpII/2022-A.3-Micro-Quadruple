@@ -88,4 +88,9 @@ namespace QuadLibrary
         pwm.setPWM(BL2, 0, pulseWidth(180)); // BL2
         pwm.setPWM(BL3, 0, pulseWidth(90));  // BL3
     }
+
+    void Quad::setServo(int servoId, int degree)
+    {
+        pwm.setPWM(servoId, 0, pulseWidth(degree));
+    }
 }

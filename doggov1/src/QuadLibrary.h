@@ -40,6 +40,8 @@ namespace QuadLibrary
         static void DefaultPosition();
 
         static void LayDown();
+        
+        static void setServo(int servoId, int degree);
 
     };
 }
