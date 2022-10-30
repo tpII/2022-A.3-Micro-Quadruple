@@ -45,14 +45,11 @@ void setup() {
 
 void loop() {
 
+  // QuadLibrary::Quad::DefaultPosition();
+  // delay(6000);
 
-  QuadLibrary::Quad::DefaultPosition();
-  delay(6000);
-
-  QuadLibrary::Quad::LayDown();
-  delay(6000);
-
-
+  // QuadLibrary::Quad::LayDown();
+  // delay(6000);
 
   server.handleClient();
 }

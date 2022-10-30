@@ -4,15 +4,11 @@ ESP8266WebServer server(80);
 #include "Server_robot.hpp"
 
 // Funcion que se ejecutara en la URI '/'
-void handleRoot() 
-{
-   server.send(200, "text/plain", "Hola mundo!");
-}
- 
+void handleRoot() { server.send(200, "text/plain", "Hola mundo!"); }
+
 // Funcion que se ejecutara en URI desconocida
-void handleNotFound() 
-{
-     String message = "File Not Found\n\n";
+void handleNotFound() {
+  String message = "File Not Found\n\n";
   message += "URI: ";
   message += server.uri();
   message += "\nMethod: ";
@@ -27,30 +23,31 @@ void handleNotFound()
 }
 // Serving Hello world
 void getHelloWord() {
-    server.send(200, "text/json", "{\"name\": \"Hello world\"}");
+  server.send(200, "text/json", "{\"name\": \"Hello world\"}");
 }
 
-void InitServer()
-{
-   // Ruteo para '/'
-   server.on("/", handleRoot);
- 
-   // Ruteo para '/inline' usando función lambda
-   server.on("/inline", []() {
-      server.send(200, "text/plain", "Esto tambien funciona");
-   });
-   server.on("/", HTTP_GET, []() {
-        server.send(200, F("text/html"),
-            F("Welcome to the REST Web Server"));
-    });
-    server.on(F("/helloWorld"), HTTP_GET, getHelloWord);
+void InitServer() {
+  // Ruteo para '/'
+  server.on("/", handleRoot);
 
+  // Ruteo para '/inline' usando función lambda
+  server.on("/inline",
+            []() { server.send(200, "text/plain", "Esto tambien funciona"); });
+  server.on("/", HTTP_GET, []() {
+    server.send(200, F("text/html"), F("Welcome to the REST Web Server"));
+  });
+  server.on(F("/helloWorld"), HTTP_GET, getHelloWord);
 
-    server.on(F("/genericArgs"), HTTP_GET, handleGenericArgs);
-   // Ruteo para URI desconocida
-   server.onNotFound(handleNotFound);
- 
-   // Iniciar servidor
-   server.begin();
-   Serial.println("HTTP server started");
+  server.on(F("/genericArgs"), HTTP_GET, handleGenericArgs);
+  server.on(F("/setServo"), HTTP_GET, handleSetServo);
+  server.on(F("/standUp"), HTTP_GET, handleDefaultPosition);
+  server.on(F("/layDown"), HTTP_GET, handleLayDown);
+  
+
+  // Ruteo para URI desconocida
+  server.onNotFound(handleNotFound);
+
+  // Iniciar servidor
+  server.begin();
+  Serial.println("HTTP server started");
 }
