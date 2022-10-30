@@ -53,7 +53,7 @@ int pulseWidth(int angle) {
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("8 chaasdasdnnel Servo test!");
+  Serial.println("8 channel Servo test!");
   digitalWrite(LED, LOW); // turn the LED on.
   delay(1000);            // wait for a second
   digitalWrite(LED, HIGH);// turn the LED off
