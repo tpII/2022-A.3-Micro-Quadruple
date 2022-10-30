@@ -4,6 +4,16 @@
 
 #include "QuadLibrary.h"
 
+
+//Wifi dependency
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h> 
+//Own libraries
+#include "config.h"  // Sustituir con datos de vuestra red
+#include "Server.hpp"
+#include "ESP8266_Utils.hpp"
+
+
 #define LED 2
 
 
@@ -23,6 +33,11 @@ void setup() {
   QuadLibrary::Quad::SetupRobot();
   delay(2000);
 
+  Connect_WiFi_APv2();
+
+  InitServer();
+  delay(10);
+
   
 }
 
@@ -38,5 +53,7 @@ void loop() {
   delay(6000);
 
 
+
+  server.handleClient();
 }
 
