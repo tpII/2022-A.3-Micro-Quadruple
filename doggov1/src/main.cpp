@@ -45,12 +45,29 @@ void setup() {
 
 void loop() {
 
-  // QuadLibrary::Quad::DefaultPosition();
-  // delay(6000);
-
-  // QuadLibrary::Quad::LayDown();
-  // delay(6000);
-
   server.handleClient();
+
+  //This Loops the FR Leg for a while
+  // std::array<double, 3> angles = InverseKinematicsLibrary::IK::getServosAngles(0,0,3,5);
+  // QuadLibrary::Quad::setServo(9, angles[0]);
+  // QuadLibrary::Quad::setServo(10, angles[1]);
+  // QuadLibrary::Quad::setServo(11, angles[2]);
+  // delay(500);
+  // angles = InverseKinematicsLibrary::IK::getServosAngles(0,0,3,6);
+  // QuadLibrary::Quad::setServo(9, angles[0]);
+  // QuadLibrary::Quad::setServo(10, angles[1]);
+  // QuadLibrary::Quad::setServo(11, angles[2]);
+  // delay(500);
+  // angles = InverseKinematicsLibrary::IK::getServosAngles(0,0,3,7);
+  // QuadLibrary::Quad::setServo(9, angles[0]);
+  // QuadLibrary::Quad::setServo(10, angles[1]);
+  // QuadLibrary::Quad::setServo(11, angles[2]);
+  // delay(500);
+  // angles = InverseKinematicsLibrary::IK::getServosAngles(0,0,3,8);
+  // QuadLibrary::Quad::setServo(9, angles[0]);
+  // QuadLibrary::Quad::setServo(10, angles[1]);
+  // QuadLibrary::Quad::setServo(11, angles[2]);
+  // delay(750);
+
 }
 

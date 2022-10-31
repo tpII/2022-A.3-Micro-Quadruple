@@ -84,12 +84,18 @@ void handleGetServosAngles()
   message += " , ";
   message += server.arg("z");
 
-  int xPos = server.arg("x").toInt();
-  int yPos = server.arg("y").toInt();
-  int zPos = server.arg("z").toInt();
+  int xPos = server.arg("x").toDouble();
+  int yPos = server.arg("y").toDouble();
+  int zPos = server.arg("z").toDouble();
 
-  /* Get Angles to this position */
-  std::array<double, 3> angles = InverseKinematicsLibrary::IK::getServosAngles(xPos,yPos,zPos);
+  Serial.println(xPos);
+  Serial.println(yPos);
+  Serial.println(zPos);
+
+  /* Get Angles for this position with the FR leg as reference*/
+  std::array<double, 3> angles = InverseKinematicsLibrary::IK::getServosAngles(0,xPos,yPos,zPos);
+
+  delay(500);
 
   message = "T1,T2,T3 = ";
   message += angles[0]; // Gets the value of servo_id
@@ -97,6 +103,11 @@ void handleGetServosAngles()
   message += angles[1];
   message += " , ";
   message += angles[2];
+
+  /* Moves the FR Leg */
+  QuadLibrary::Quad::setServo(9, angles[0]);
+  QuadLibrary::Quad::setServo(10, angles[1]);
+  QuadLibrary::Quad::setServo(11, angles[2]);
   
   server.send(200, "text / plain", message); // Returns the HTTP response
 }
