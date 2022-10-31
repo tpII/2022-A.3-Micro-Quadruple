@@ -41,5 +41,7 @@ namespace QuadLibrary
 
         static void LayDown();
 
+        static void Servos90Grados();
+
     };
 }

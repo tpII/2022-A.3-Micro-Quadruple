@@ -3,6 +3,7 @@
 #include <Wire.h>
 
 #include "QuadLibrary.h"
+#include "InverseKinematicsLibrary.h"
 
 #define LED 2
 
@@ -30,11 +31,18 @@ void setup() {
 
 void loop() {
 
+  /* Get Angles to this position */
+  std::array<double, 3> angles = InverseKinematicsLibrary::IK::getServosAngles(1,-4,4);
 
-  QuadLibrary::Quad::DefaultPosition();
+  Serial.println(angles[0]);
+  Serial.println(angles[1]);
+  Serial.println(angles[2]);
+
+
+  QuadLibrary::Quad::Servos90Grados();
   delay(6000);
 
-  QuadLibrary::Quad::LayDown();
+  //QuadLibrary::Quad::LayDown();
   delay(6000);
 
 
