@@ -40,6 +40,7 @@ void InitServer() {
 
   server.on(F("/genericArgs"), HTTP_GET, handleGenericArgs);
   server.on(F("/setServo"), HTTP_GET, handleSetServo);
+  server.on(F("/getAngles"), HTTP_GET, handleGetServosAngles);
   server.on(F("/standUp"), HTTP_GET, handleDefaultPosition);
   server.on(F("/layDown"), HTTP_GET, handleLayDown);
   
