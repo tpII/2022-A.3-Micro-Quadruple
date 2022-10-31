@@ -34,7 +34,11 @@ _Como primer paso se debera ejecutar el codigo de setup para que el robot se asi
 * [Partes Impresas 3D](https://maven.apache.org/) - Utilizadas para ensamblar el robot.
 * [Sockets y Cableado](https://maven.apache.org/) - Evita soldar el microcontrolador. Mas dinamico.
 
+## Issues
 
+Para reportar un problema o sugerir cambios
+
+ [![Issue](https://badgen.net/badge/icon/issues?icon=github&label)](https://github.com/tpII/2022-A.3-Micro-Quadruple/issues)
 
 ## Wiki 📖
 
