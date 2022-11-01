@@ -44,6 +44,11 @@ Para reportar un problema o sugerir cambios
 
 Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tpII/2022-A.3-Micro-Quadruple/wiki)
 
+
+## Issues
+
+[Issues](https://github.com/tpII/2022-A.3-Micro-Quadruple/wiki)
+
 ## Autores ✒️
 
 * **Adra Federico** - *Eligio el proyecto* - [![Repo](https://badgen.net/badge/icon/fedeadra25?icon=github&label)](https://github.com/fedeadra25)
