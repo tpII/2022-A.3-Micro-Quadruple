@@ -29,7 +29,7 @@ void setup() {
   Serial.println("/layDown /standUp /dogPosition /referencePosition");
   Serial.println("/getAngles?x=0&y=5&z=7 For Example");
   Serial.println("/setServo?servo_id=9&angle=110 For Example");
-    Serial.println("------------------------------------------------");
+  Serial.println("------------------------------------------------");
 
 
   
