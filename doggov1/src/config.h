@@ -1,4 +1,4 @@
-const char* ssid = "HANGFROMESTA";
+const char* ssid = "ManchitasV1";
 const char* password = "password";
 const char* hostname = "ESP8266_1";
 

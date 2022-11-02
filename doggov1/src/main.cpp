@@ -22,7 +22,15 @@
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("8 channel Servo test!");
+  Serial.println("");
+  Serial.println("Welcome to Manchitas V1.0");
+  Serial.println("Please refer to the AP for controlling the Robot");
+  Serial.println("------------------------------------------------");
+  Serial.println("/layDown /standUp /dogPosition /referencePosition");
+  Serial.println("/getAngles?x=0&y=5&z=7 For Example");
+  Serial.println("/setServo?servo_id=9&angle=110 For Example");
+  Serial.println("------------------------------------------------");
+
 
   
   digitalWrite(LED, LOW); // turn the LED on.
