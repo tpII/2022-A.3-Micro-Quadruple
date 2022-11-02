@@ -88,9 +88,9 @@ void handleGetServosAngles()
   int yPos = server.arg("y").toDouble();
   int zPos = server.arg("z").toDouble();
 
-  Serial.println(xPos);
-  Serial.println(yPos);
-  Serial.println(zPos);
+  // Serial.println(xPos);
+  // Serial.println(yPos);
+  // Serial.println(zPos);
 
   /* Get Angles for this position with the FR leg as reference*/
   std::array<double, 3> angles = InverseKinematicsLibrary::IK::getServosAngles(0,xPos,yPos,zPos);
@@ -129,5 +129,25 @@ void handleLayDown()
   server.send(200, "text/plain", message); // Response to the HTTP request
   delay(100);
   QuadLibrary::Quad::LayDown();
+  delay(1000);
+}
+
+// Reference Positions
+void handleReferencePosition()
+{
+  String message = "Reference Position for IK Calculations:";
+  server.send(200, "text/plain", message); // Response to the HTTP request
+  delay(100);
+  QuadLibrary::Quad::ReferencePosition();
+  delay(1000);
+}
+
+// Dog Position
+void handleDogInitPosition()
+{
+  String message = "Dog Init Position";
+  server.send(200, "text/plain", message); // Response to the HTTP request
+  delay(100);
+  QuadLibrary::Quad::DogInitPosition();
   delay(1000);
 }

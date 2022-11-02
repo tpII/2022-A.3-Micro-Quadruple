@@ -39,6 +39,10 @@ namespace QuadLibrary
 
         static void DefaultPosition();
 
+        static void ReferencePosition();
+
+        static void DogInitPosition();
+
         static void LayDown();
         
         static void setServo(int servoId, int degree);

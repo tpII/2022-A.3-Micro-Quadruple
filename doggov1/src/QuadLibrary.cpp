@@ -67,24 +67,68 @@ namespace QuadLibrary
         pwm.setPWM(BL3, 0, pulseWidth(130)); // BL3
     }
 
+    void Quad::DogInitPosition()
+    {
+        pwm.setPWM(BR1, 0, pulseWidth(85)); // BR1
+        pwm.setPWM(BR2, 0, pulseWidth(40)); // BR2
+        pwm.setPWM(BR3, 0, pulseWidth(40)); // BR3
+
+        // pwm.setPWM(4, 0, pulseWidth(90));
+        pwm.setPWM(FL1, 0, pulseWidth(75)); // FL1
+        pwm.setPWM(FL2, 0, pulseWidth(100)); // FL2
+        pwm.setPWM(FL3, 0, pulseWidth(130)); // FL3
+
+        // pwm.setPWM(8, 0, pulseWidth(90));
+        pwm.setPWM(FR1, 0, pulseWidth(110)); // FR1
+        pwm.setPWM(FR2, 0, pulseWidth(40)); // FR2
+        pwm.setPWM(FR3, 0, pulseWidth(40)); // FR3
+
+        // pwm.setPWM(12, 0, pulseWidth(90));
+        pwm.setPWM(BL1, 0, pulseWidth(90));  // BL1
+        pwm.setPWM(BL2, 0, pulseWidth(140)); // BL2
+        pwm.setPWM(BL3, 0, pulseWidth(130)); // BL3
+    }
+
+    void Quad::ReferencePosition()
+    {
+        pwm.setPWM(BR1, 0, pulseWidth(80)); // BR1
+        pwm.setPWM(BR2, 0, pulseWidth(65)); // BR2
+        pwm.setPWM(BR3, 0, pulseWidth(90)); // BR3
+
+        // pwm.setPWM(4, 0, pulseWidth(90));
+        pwm.setPWM(FL1, 0, pulseWidth(70)); // FL1
+        pwm.setPWM(FL2, 0, pulseWidth(70)); // FL2
+        pwm.setPWM(FL3, 0, pulseWidth(90)); // FL3
+
+        // pwm.setPWM(8, 0, pulseWidth(90));
+        pwm.setPWM(FR1, 0, pulseWidth(110)); // FR1
+        pwm.setPWM(FR2, 0, pulseWidth(80)); // FR2
+        pwm.setPWM(FR3, 0, pulseWidth(90)); // FR3
+
+        // pwm.setPWM(12, 0, pulseWidth(90));
+        pwm.setPWM(BL1, 0, pulseWidth(90));  // BL1
+        pwm.setPWM(BL2, 0, pulseWidth(120)); // BL2
+        pwm.setPWM(BL3, 0, pulseWidth(90)); // BL3
+    }
+
     void Quad::LayDown()
     {
-        pwm.setPWM(BR1, 0, pulseWidth(120)); // BR1
+        pwm.setPWM(BR1, 0, pulseWidth(80)); // BR1
         pwm.setPWM(BR2, 0, pulseWidth(0));   // BR2
         pwm.setPWM(BR3, 0, pulseWidth(90));  // BR3
 
         // pwm.setPWM(4, 0, pulseWidth(90));
-        pwm.setPWM(FL1, 0, pulseWidth(110)); // FL1
+        pwm.setPWM(FL1, 0, pulseWidth(70)); // FL1
         pwm.setPWM(FL2, 0, pulseWidth(0));   // FL2
         pwm.setPWM(FL3, 0, pulseWidth(90));  // FL3
 
         // pwm.setPWM(8, 0, pulseWidth(90));
-        pwm.setPWM(FR1, 0, pulseWidth(90));  // FR1
+        pwm.setPWM(FR1, 0, pulseWidth(110));  // FR1
         pwm.setPWM(FR2, 0, pulseWidth(180)); // FR2
         pwm.setPWM(FR3, 0, pulseWidth(90));  // FR3
 
         // pwm.setPWM(12, 0, pulseWidth(90));
-        pwm.setPWM(BL1, 0, pulseWidth(110)); // BL1
+        pwm.setPWM(BL1, 0, pulseWidth(90)); // BL1
         pwm.setPWM(BL2, 0, pulseWidth(180)); // BL2
         pwm.setPWM(BL3, 0, pulseWidth(90));  // BL3
     }
