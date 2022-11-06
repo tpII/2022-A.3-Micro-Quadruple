@@ -21,18 +21,19 @@ _Como primer paso se debera ejecutar el codigo de setup para que el robot se asi
 
 ## Construido con 🛠️
 
-* [VSCode](https://maven.apache.org/) - Editor de Codigo Principal
-* [PlatformIO](https://maven.apache.org/) - Extension para programar en Microcontroladores
-* [ArduinoIDE](http://www.dropwizard.io/1.0.2/docs/) - IDE para complementar
-* [ReactJS](https://maven.apache.org/) - Framework para Front-End en JavaScript
-* [Octave](https://maven.apache.org/) - Para matrices de transformacion - Cinematica Inversa
+* [VSCode](https://code.visualstudio.com/) - Editor de Codigo Principal
+* [PlatformIO](https://platformio.org/) - Extension para programar en Microcontroladores
+* [ArduinoIDE](https://www.arduino.cc/en/software) - IDE para complementar
+* [ReactJS](https://es.reactjs.org/) - Framework para Front-End en JavaScript
+* [Octave](https://octave.org/) - Para matrices de transformacion - Cinematica Inversa
 
-* [NodeMCU DevKit](https://rometools.github.io/rome/) - Microcontrolador
-* [PCA9685](https://maven.apache.org/) - Controlador de Servos
-* [MG90s / SG90](https://maven.apache.org/) - Servomotores
-* [Fuente de Alimentacion](https://maven.apache.org/) - Debe ser capas de utilizar los 12 servos.
-* [Partes Impresas 3D](https://maven.apache.org/) - Utilizadas para ensamblar el robot.
-* [Sockets y Cableado](https://maven.apache.org/) - Evita soldar el microcontrolador. Mas dinamico.
+* [NodeMCU](https://www.esploradores.com/wp-content/uploads/2016/08/PINOUT-NodeMCU-1_1.8.png) - Microcontrolador
+* [ESP8266](https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf) Modulo ESP8266 WiFi (viene en el encapsulado)
+* [PCA9685](https://pdf1.alldatasheet.com/datasheet-pdf/view/293576/NXP/PCA9685.html) - Controlador de Servos
+* [SG90](https://www.towerpro.com.tw/product/sg90-7/) - Servomotores
+* [Fuente de Alimentacion]() - Debe ser capas de utilizar los 12 servos.
+* [Partes Impresas 3D](https://www.instructables.com/Arduino-Powered-Micro-Quadruped/) - Utilizadas para ensamblar el robot.
+* [Sockets y Cableado]() - Evita soldar el microcontrolador. Mas dinamico.
 
 ## Issues
 
