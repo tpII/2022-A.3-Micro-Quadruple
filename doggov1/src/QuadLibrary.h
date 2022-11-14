@@ -17,6 +17,30 @@
 #define BL2 14
 #define BL3 15
 
+//Offsets
+// FR FL BR BL
+//{110, 80, 90, FR
+// 70, 70, 90, FL 
+//  80, 65, 90, BR
+//   90, 120, 90}; BL
+
+#define BR1_OFFSET 75
+#define BR2_OFFSET 64
+#define BR3_OFFSET 90
+
+#define FL1_OFFSET 72
+#define FL2_OFFSET 72
+#define FL3_OFFSET 78
+
+#define FR1_OFFSET 117
+#define FR2_OFFSET 75
+#define FR3_OFFSET 97
+
+#define BL1_OFFSET 95
+#define BL2_OFFSET 130
+#define BL3_OFFSET 100
+
+
 #include <Adafruit_PWMServoDriver.h>
 
 // Depending on your servo make, the pulse width min and max may vary, you 

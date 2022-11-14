@@ -1,6 +1,9 @@
 #include "InverseKinematicsLibrary.h"
 
-
+/**
+ * @brief Prueba para recibir query params
+ * Imprime los parametros recibidos en la respuesta del servidor
+*/
 void handleGenericArgs()
 { // Handler
 
@@ -84,13 +87,13 @@ void handleGetServosAngles()
   message += " , ";
   message += server.arg("z");
 
-  int xPos = server.arg("x").toDouble();
-  int yPos = server.arg("y").toDouble();
-  int zPos = server.arg("z").toDouble();
+  double xPos = server.arg("x").toDouble();
+  double yPos = server.arg("y").toDouble();
+  double zPos = server.arg("z").toDouble();
 
-  // Serial.println(xPos);
-  // Serial.println(yPos);
-  // Serial.println(zPos);
+  Serial.println(xPos);
+  Serial.println(yPos);
+  Serial.println(zPos);
 
   /* Get Angles for this position with the FR leg as reference*/
   std::array<double, 3> angles = InverseKinematicsLibrary::IK::getServosAngles(0,xPos,yPos,zPos);
