@@ -71,10 +71,10 @@ void handleGetServosAngles()
 {
   String message = "";
 
-  if (server.arg("x") == "" || server.arg("y") == "" || server.arg("z") == "")
+  if (server.arg("x") == "" || server.arg("y") == "" || server.arg("z") == "" || server.arg("leg")=="")
   { // Parameter not found
 
-    message = "Please provide x,y,z";
+    message = "Please provide x,y,z,leg";
     server.send(500, "text / plain", message); // Returns the HTTP response
     return;
   }
@@ -86,17 +86,21 @@ void handleGetServosAngles()
   message += server.arg("y");
   message += " , ";
   message += server.arg("z");
+  message += " , ";
+  message += server.arg("leg");
 
   double xPos = server.arg("x").toDouble();
   double yPos = server.arg("y").toDouble();
   double zPos = server.arg("z").toDouble();
+  int leg = server.arg("leg").toInt();
 
   Serial.println(xPos);
   Serial.println(yPos);
   Serial.println(zPos);
+  Serial.println(leg);
 
   /* Get Angles for this position with the FR leg as reference*/
-  std::array<double, 3> angles = InverseKinematicsLibrary::IK::getServosAngles(0,xPos,yPos,zPos);
+  std::array<double, 3> angles = InverseKinematicsLibrary::IK::getServosAngles(leg,xPos,yPos,zPos);
 
   delay(500);
 
@@ -108,9 +112,9 @@ void handleGetServosAngles()
   message += angles[2];
 
   /* Moves the FR Leg */
-  QuadLibrary::Quad::setServo(9, angles[0]);
-  QuadLibrary::Quad::setServo(10, angles[1]);
-  QuadLibrary::Quad::setServo(11, angles[2]);
+  QuadLibrary::Quad::setServo(leg+1, angles[0]);
+  QuadLibrary::Quad::setServo(leg+2, angles[1]);
+  QuadLibrary::Quad::setServo(leg+3, angles[2]);
   
   server.send(200, "text / plain", message); // Returns the HTTP response
 }
@@ -153,4 +157,37 @@ void handleDogInitPosition()
   delay(100);
   QuadLibrary::Quad::DogInitPosition();
   delay(1000);
+}
+
+void handleMovement()
+{
+  String message = "such movement";
+  server.send(200, "text/plain", message); // Response to the HTTP request
+  delay(100);
+
+
+  int j = 2,leg=server.arg("leg").toInt();
+  while (j != 0)
+  {
+    j--;
+    std::array<double, 3> angles;
+    for(int i=7;i>4;i--){
+      angles = InverseKinematicsLibrary::IK::getServosAngles(leg,6,0.5f,i);
+      delay(300);
+      /* Moves the FR Leg */
+      QuadLibrary::Quad::setServo(leg+1, angles[0]);
+      QuadLibrary::Quad::setServo(leg+2, angles[1]);
+      QuadLibrary::Quad::setServo(leg+3, angles[2]);
+    }
+  
+    /* Get Angles for this position with the FR leg as reference*/
+    angles = InverseKinematicsLibrary::IK::getServosAngles(leg,6,0.5f,5);
+    delay(300);
+    /* Moves the FR Leg */
+    QuadLibrary::Quad::setServo(leg+1, angles[0]);
+    QuadLibrary::Quad::setServo(leg+2, angles[1]);
+    QuadLibrary::Quad::setServo(leg+3, angles[2]);
+
+
+  }
 }

@@ -45,6 +45,7 @@ void InitServer() {
   server.on(F("/layDown"), HTTP_GET, handleLayDown);
   server.on(F("/referencePosition"), HTTP_GET, handleReferencePosition);
   server.on(F("/dogPosition"), HTTP_GET, handleDogInitPosition);
+  server.on(F("/move"), HTTP_GET, handleMovement);
   
 
   // Ruteo para URI desconocida
