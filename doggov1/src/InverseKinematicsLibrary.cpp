@@ -29,9 +29,15 @@ namespace InverseKinematicsLibrary
 
         /* Result Array Converted to Degrees, limited from 0 to 360  */
         std::array<double, 3> angles;
+
         angles[0] = default_servo_pos[leg + 1] - ((int)(t1 * 180.0 / M_PI) % 360);
         angles[1] = default_servo_pos[leg + 2] + ((int)(t2 * 180.0 / M_PI) % 360);
         angles[2] = default_servo_pos[leg + 3] - ((int)(t3 * 180.0 / M_PI) % 360);
+
+        /* If we calculated for left legs, invert the angles */
+        if ((leg == 4) || (leg ==  12)){
+            for (size_t i = 0; i < 3; i++){ angles[i] = 180 - angles[i];}            
+        }
         
 
         /* Returns the Angles in an Array */
