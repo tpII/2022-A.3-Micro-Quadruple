@@ -120,6 +120,7 @@ void handleReferencePosition()
   String message = "Reference Position for IK Calculations:";
   server.send(200, "text/plain", message); // Response to the HTTP request
   delay(100);
+  // x -> 7.98  y -> 0  z -> 2.05
   QuadLibrary::Quad::ReferencePosition();
   delay(1000);
 }
