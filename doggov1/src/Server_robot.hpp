@@ -1,27 +1,5 @@
 #include "InverseKinematicsLibrary.h"
 
-/**
- * @brief Prueba para recibir query params
- * Imprime los parametros recibidos en la respuesta del servidor
-*/
-void handleGenericArgs()
-{ // Handler
-
-  String message = "Number of args received:";
-  message += server.args(); // Get number of parameters
-  message += "\n";          // Add a new line
-
-  for (int i = 0; i < server.args(); i++)
-  {
-    message +=
-        "Arg nro " + (String)i + " -> "; // Include the current iteration value
-    message += server.argName(i) + ": "; // Get the name of the parameter
-    message += server.arg(i) + "\n";     // Get the value of the parameter
-  }
-
-  server.send(200, "text/plain", message); // Response to the HTTP request
-}
-
 void handleSetServo()
 {
   String message = "";
@@ -45,24 +23,6 @@ void handleSetServo()
 
   QuadLibrary::Quad::setServo(servoId, angle);
   server.send(200, "text / plain", message); // Returns the HTTP response
-}
-
-void handleSetServov2()
-{ // Handler
-
-  String message = "Number of args received:";
-  message += server.args(); // Get number of parameters
-  message += "\n";          // Add a new line
-
-  for (int i = 0; i < server.args(); i++)
-  {
-    message +=
-        "Arg nro " + (String)i + " -> "; // Include the current iteration value
-    message += server.argName(i) + ": "; // Get the name of the parameter
-    message += server.arg(i) + "\n";     // Get the value of the parameter
-  }
-
-  server.send(200, "text/plain", message); // Response to the HTTP request
 }
 
 void handleGetServosAngles()
@@ -134,6 +94,10 @@ void handleDogInitPosition()
   delay(1000);
 }
 
+/**
+ * @brief Such movement
+ * 
+ */
 void handleMovement()
 {
   String message = "such movement";
