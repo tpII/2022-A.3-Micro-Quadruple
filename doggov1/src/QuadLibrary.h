@@ -17,13 +17,6 @@
 #define BL2 14
 #define BL3 15
 
-//Offsets
-// FR FL BR BL
-//{110, 80, 90, FR
-// 70, 70, 90, FL 
-//  80, 65, 90, BR
-//   90, 120, 90}; BL
-
 #define BR1_OFFSET 75
 #define BR2_OFFSET 64
 #define BR3_OFFSET 90
@@ -43,31 +36,23 @@
 
 #include <Adafruit_PWMServoDriver.h>
 
-// Depending on your servo make, the pulse width min and max may vary, you 
-// want these to be as small/large as possible without hitting the hard stop
-// for max range. You'll have to tweak them as necessary to match the servos you
-// have!
-#define SERVOMIN  150 // This is the 'minimum' pulse length count (out of 4096)
-#define SERVOMAX  600 // This is the 'maximum' pulse length count (out of 4096)
-#define USMIN  500 // This is the rounded 'minimum' microsecond length based on the minimum pulse of 150
-#define USMAX  2500 // This is the rounded 'maximum' microsecond length based on the maximum pulse of 600
-#define SERVO_FREQ 50 // Analog servos run at ~50 Hz updates
+#define SERVOMIN  150   // This is the 'minimum' pulse length count (out of 4096)
+#define SERVOMAX  600   // This is the 'maximum' pulse length count (out of 4096)
+#define USMIN  500      // This is the rounded 'minimum' microsecond length based on the minimum pulse of 150
+#define USMAX  2500     // This is the rounded 'maximum' microsecond length based on the maximum pulse of 600
+#define SERVO_FREQ 50   // Analog servos run at ~50 Hz updates
 
 namespace QuadLibrary
 {
     class Quad
     {
     public:
-        // Returns a + b
-        static void SetupRobot();
 
-        static void DefaultPosition();
+        static void SetupRobot();
 
         static void ReferencePosition();
 
         static void DogInitPosition();
-
-        static void LayDown();
         
         static void setServo(int servoId, int degree);
 
