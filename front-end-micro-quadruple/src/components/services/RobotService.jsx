@@ -7,7 +7,7 @@ export class RobotService {
             return response;
           }, (response) => {
             return response.status
-          });   
+          }), setTimeout(2000);   
     }
 
     setServo(idServo, angle) {
@@ -15,7 +15,7 @@ export class RobotService {
         return response;
       }, (response) => {
         return response.status
-      });   
+      }), setTimeout(2000);   
     }
 
     getReferencePosition() {
@@ -23,7 +23,7 @@ export class RobotService {
         return response;
       }, (response) => {
         return response.status
-      });   
+      }), setTimeout(2000);   
     }
 
     getReferencePosition() {
@@ -31,7 +31,7 @@ export class RobotService {
         return response;
       }, (response) => {
         return response.status
-      });   
+      }), setTimeout(2000);   
     }
 
     getAngles(x, y, z, leg) {
@@ -39,7 +39,7 @@ export class RobotService {
         return response;
       }, (response) => {
         return response.status
-      });   
+      }), setTimeout(2000);   
     }
 
     dogPosition() {
@@ -47,15 +47,16 @@ export class RobotService {
         return response;
       }, (response) => {
         return response.status
-      });   
+      }), setTimeout(2000);   
     }
 
     move() {
+      console.log("Entre!")
       return axios.get("http://192.168.1.200/move").then((response) => {
         return response;
       }, (response) => {
         return response.status
-      });   
+      }), setTimeout(2000);   
     }
 
 }

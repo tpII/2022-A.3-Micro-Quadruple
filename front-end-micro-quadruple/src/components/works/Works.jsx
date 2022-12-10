@@ -33,7 +33,7 @@ export default function Works() {
     }
 
     const onClicDogPosition = async () => {
-        let response = await robotService.dogPositiono();
+        let response = await robotService.dogPosition();
         const statusCode = response ? response.status : null;
         renderToast(statusCode);
     }
