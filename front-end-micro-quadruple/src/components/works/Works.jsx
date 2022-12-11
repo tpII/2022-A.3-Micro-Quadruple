@@ -20,30 +20,30 @@ export default function Works() {
             toast.current.show({ severity: 'error', summary: message, life: 2000 });
         }
     }
-    const onClick = async () => {
-        let response = await robotService.getGenericArgs();
-        const statusCode = response ? response.status : null;
-        renderToast(statusCode);
-    }
-
+    
     const onClickWalk = async () => {
         let response = await robotService.move();
         const statusCode = response ? response.status : null;
         renderToast(statusCode);
     }
-
-    const onClicDogPosition = async () => {
+    
+    const onClickDogPosition = async () => {
         let response = await robotService.dogPosition();
         const statusCode = response ? response.status : null;
         renderToast(statusCode);
     }
-
-    const onClicUp = async () => {
+    
+    const onClickUp = async () => {
         let response = await robotService.getReferencePosition();
         const statusCode = response ? response.status : null;
         renderToast(statusCode);
     }
-
+    
+    const onClickLean = async () => {
+        let response = await robotService.leanFront();
+        const statusCode = response ? response.status : null;
+        renderToast(statusCode);
+    }
 
     return <div className="works" id="works">
             <Toast ref={toast} position={"top-center"}/>
@@ -53,7 +53,7 @@ export default function Works() {
                     <button onClick={onClickWalk}  className="myButton"> Caminar</button>
                     <br />
                     <br />
-                    <button onClick={onClicDogPosition}  className="myButton"> Agachar</button>
+                    <button onClick={onClickDogPosition}  className="myButton"> Agachar</button>
                     {/* <h3>| 2022 - UNLP | </h3> */}
                 </div>
 
@@ -61,10 +61,10 @@ export default function Works() {
             </div>
             <div className="right">
                 <div className="wrapper">
-                    <button onClick={onClicUp}  className="myButton"> Levantar</button>
+                    <button onClick={onClickUp}  className="myButton"> Levantar</button>
                     <br />
                     <br />
-                    <button onClick={onClick} class="myButton"> Inclinar</button>
+                    <button onClick={onClickLean} class="myButton"> Inclinar</button>
                     {/* <h3>| 2022 - UNLP | </h3> */}
                 </div>
             </div>

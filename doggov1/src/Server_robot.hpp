@@ -131,11 +131,11 @@ void handleGetServosAngles()
 void handleReferencePosition()
 {
   String message = "Reference Position for IK Calculations:";
-  server.send(200, "text/plain", message); // Response to the HTTP request
   delay(100);
   // x -> 7.98  y -> 0  z -> 2.05
   QuadLibrary::Quad::ReferencePosition();
-  delay(1000);
+  delay(500);
+  server.send(200, "text/plain", message); // Response to the HTTP request
 }
 
 // Dog Position
@@ -148,44 +148,33 @@ void handleDogInitPosition()
   delay(1000);
 }
 
+void handleLeanFront()
+{
+  String message = "Lean front";
+  delay(100);
+  inverseKinematicsLeg(8,2,0.5,8.5);
+  inverseKinematicsLeg(4,2,0.5,8.5);
+  inverseKinematicsLeg(0,7.5,1,4);
+  inverseKinematicsLeg(12,7.5,1,4);
+  delay(100);
+  server.send(200, "text/plain", message); // Response to the HTTP request
+}
+
+void handleLeanBack()
+{
+  String message = "Lean back";
+  delay(100);
+  inverseKinematicsLeg(8,7,0.5,-2);
+  inverseKinematicsLeg(4,7,0.5,-2);
+  inverseKinematicsLeg(0,2,0.5,2);
+  inverseKinematicsLeg(12,2,0.5,2);
+  delay(100);
+  server.send(200, "text/plain", message); // Response to the HTTP request
+}
+
 void handleMovement()
 {
   String message = "Moving robot";
-  server.send(200, "text/plain", message); // Response to the HTTP request
-  /* OLD
-  std::array<std::array<double,3>,15> angles = {{
-    {3,0.5,7.5},
-    {4,0.5,7.5},
-    {5,0.5,7.5},
-    {5,0.5,7},
-    {5,0.5,6},
-    {5,0.5,5},
-    {5,0.5,4},
-    {5,0.5,2},
-    {5,0.5,-3},
-    {5,0.5,-4},
-    {4.5,0.5,-4},
-    {4,0.5,-4},
-    {3,0.5,-4},
-    {2,0.5,-4}
-  }};
-  std::array<std::array<double,3>,15> angles2 = {{
-    {4,0.5,4},
-    {4,0.5,3},
-    {4,0.5,2.5},
-    {4,0.5,2},
-    {4,0.5,1.5},
-    {4,0.5,1},
-    {4,0.5,0},
-    {4,0.5,-1},
-    {4,0.5,-2.5},
-    {4,0.5,-3},
-    {4,0.5,-3.5},
-    {4,0.5,-4},
-    {4,0.5,-5},
-    {2,0.5,-6},
-  }};
-  */
  std::array<std::array<double,3>,6> anglesFront = {{
     {6,0.5,5},
     {4,0.5,6},
@@ -204,91 +193,27 @@ void handleMovement()
   }};
   delay(100);
   int delayAmount=server.arg("delay").toInt();
-  delayAmount = delayAmount <0 ? 0: delayAmount>1000 ? 1000:delayAmount;
-  /* OLD Way to move the robot
-  std::array<double,3> anglesLegBR,anglesLegFL,anglesLegFR,anglesLegBL;
-  for(int j=0;j<2;j++){
-    for(int i=0;i<angles.size();i++){
-      anglesLegBR = angles2[i];
-      anglesLegFL = angles[i];
-      anglesLegFR = angles[i];
-      anglesLegBL = angles2[i];
-      Serial.print("xyz BR = ");
-      Serial.print(anglesLegBR[0]);
-      Serial.print(anglesLegBR[1]);
-      Serial.println(anglesLegBR[2]);
-      inverseKinematicsLeg(0,anglesLegBR[0],anglesLegBR[1],anglesLegBR[2]);
-      delay(100);
-      inverseKinematicsLeg(4,anglesLegFL[0],anglesLegFL[1],anglesLegFL[2]);
-      delay(100);
-      inverseKinematicsLeg(8,anglesLegFR[0],anglesLegFR[1],anglesLegFR[2]);
-      delay(100);
-      inverseKinematicsLeg(12,anglesLegBL[0],anglesLegBL[1],anglesLegBL[2]);
-      delay(1000);
-    }
-    QuadLibrary::Quad::DogInitPosition();
-  }
-  */
+  delayAmount = delayAmount <100 ? 100: delayAmount>1000 ? 1000:delayAmount;
   // New Way to move the robot
-  Serial.println(delayAmount);
-  Serial.println();
-  for(int i=0;i<2;i++){  
+  for(int i=0;i<2;i++){
     int start = i*3;
     int end = (i+1)*3;
     for(int k=start;k<end;k++){
-      Serial.println(k);
-      Serial.println(anglesFront[k][0]);
-      Serial.println(anglesFront[k][1]);
-      Serial.println(anglesFront[k][2]);
       inverseKinematicsLeg(8,anglesFront[k][0],anglesFront[k][1],anglesFront[k][2]);
       delay(delayAmount);
     }
-    Serial.println();
     for(int k=start;k<end;k++){
-      Serial.println(k);
-      Serial.println(anglesFront[k][0]);
-      Serial.println(anglesFront[k][1]);
-      Serial.println(anglesFront[k][2]);
       inverseKinematicsLeg(12,anglesBack[k][0],anglesBack[k][1],anglesBack[k][2]);
       delay(delayAmount);
     }
-    Serial.println();
     for(int k=start;k<end;k++){
-      Serial.println(k);
-      Serial.println(anglesFront[k][0]);
-      Serial.println(anglesFront[k][1]);
-      Serial.println(anglesFront[k][2]);
       inverseKinematicsLeg(4,anglesFront[k][0],anglesFront[k][1],anglesFront[k][2]);
       delay(delayAmount);
     }
-    Serial.println();
     for(int k=start;k<end;k++){
-      Serial.println(k);
-      Serial.println(anglesFront[k][0]);
-      Serial.println(anglesFront[k][1]);
-      Serial.println(anglesFront[k][2]);
       inverseKinematicsLeg(0,anglesBack[k][0],anglesBack[k][1],anglesBack[k][2]);
       delay(delayAmount);
     }
-    Serial.println();
-    /*
-    inverseKinematicsLeg(8,3,0.5,7);
-    delay(500);
-    inverseKinematicsLeg(12,7.5,1,4);
-    delay(500);
-    inverseKinematicsLeg(4,3,0.5,7);
-    delay(500);
-    inverseKinematicsLeg(0,7.5,1,4);
-    delay(500);
-    //Second
-    inverseKinematicsLeg(8,7,0.5,-1);
-    delay(500);
-    inverseKinematicsLeg(12,6.5,1,-3);
-    delay(500);
-    inverseKinematicsLeg(4,7,0.5,-1);
-    delay(500);
-    inverseKinematicsLeg(0,6.5,1,-3);
-    delay(500);
-    */
   }
+  server.send(200, "text/plain", message); // Response to the HTTP request
 }
