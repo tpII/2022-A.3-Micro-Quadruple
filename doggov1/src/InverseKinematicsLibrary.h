@@ -19,7 +19,7 @@ namespace InverseKinematicsLibrary
     public:
         
         /** Function that returns the 3 angles for the Front Right Leg (FR1) */
-        static std::array<double,3> getServosAngles(int leg, double x, double y, double z);
+        static std::array<double,3> getServosAngles(int leg, double x, double y, double z, int debug);
 
     };
 }

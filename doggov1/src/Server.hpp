@@ -43,6 +43,8 @@ void InitServer() {
   server.on(F("/getAngles"), HTTP_GET, handleGetServosAngles);
   server.on(F("/referencePosition"), HTTP_GET, handleReferencePosition);
   server.on(F("/dogPosition"), HTTP_GET, handleDogInitPosition);
+  server.on(F("/leanBack"), HTTP_GET, handleLeanBack);
+  server.on(F("/leanFront"), HTTP_GET, handleLeanFront);
   server.on(F("/move"), HTTP_GET, handleMovement);
   
 

@@ -1,5 +1,18 @@
 #include "InverseKinematicsLibrary.h"
 
+
+void setServoLeg(std::array<double, 3> angles, int leg){
+  QuadLibrary::Quad::setServo(leg + 1, angles[0]);
+  QuadLibrary::Quad::setServo(leg + 2, angles[1]);
+  QuadLibrary::Quad::setServo(leg + 3, angles[2]);  
+}
+
+void inverseKinematicsLeg(int leg, double x,double y, double z){
+  std::array<double, 3> angles;
+  angles = InverseKinematicsLibrary::IK::getServosAngles(leg,x,y,z,0);
+  setServoLeg(angles,leg);
+}
+
 /**
  * @brief Prueba para recibir query params
  * Imprime los parametros recibidos en la respuesta del servidor
@@ -94,7 +107,7 @@ void handleGetServosAngles()
   int leg = server.arg("leg").toInt();
 
   /* Get Angles for the x,y,z position */
-  std::array<double, 3> angles = InverseKinematicsLibrary::IK::getServosAngles(leg,xPos,yPos,zPos);
+  std::array<double, 3> angles = InverseKinematicsLibrary::IK::getServosAngles(leg,xPos,yPos,zPos,1);
 
   delay(500);
 
@@ -118,11 +131,11 @@ void handleGetServosAngles()
 void handleReferencePosition()
 {
   String message = "Reference Position for IK Calculations:";
-  server.send(200, "text/plain", message); // Response to the HTTP request
   delay(100);
   // x -> 7.98  y -> 0  z -> 2.05
   QuadLibrary::Quad::ReferencePosition();
-  delay(1000);
+  delay(500);
+  server.send(200, "text/plain", message); // Response to the HTTP request
 }
 
 // Dog Position
@@ -135,35 +148,72 @@ void handleDogInitPosition()
   delay(1000);
 }
 
+void handleLeanFront()
+{
+  String message = "Lean front";
+  delay(100);
+  inverseKinematicsLeg(8,2,0.5,8.5);
+  inverseKinematicsLeg(4,2,0.5,8.5);
+  inverseKinematicsLeg(0,7.5,1,4);
+  inverseKinematicsLeg(12,7.5,1,4);
+  delay(100);
+  server.send(200, "text/plain", message); // Response to the HTTP request
+}
+
+void handleLeanBack()
+{
+  String message = "Lean back";
+  delay(100);
+  inverseKinematicsLeg(8,7,0.5,-2);
+  inverseKinematicsLeg(4,7,0.5,-2);
+  inverseKinematicsLeg(0,2,0.5,2);
+  inverseKinematicsLeg(12,2,0.5,2);
+  delay(100);
+  server.send(200, "text/plain", message); // Response to the HTTP request
+}
+
 void handleMovement()
 {
-  String message = "such movement";
-  server.send(200, "text/plain", message); // Response to the HTTP request
+  String message = "Moving robot";
+ std::array<std::array<double,3>,6> anglesFront = {{
+    {6,0.5,5},
+    {4,0.5,6},
+    {3,0.5,7},
+    {4,0.5,6},
+    {6,0.5,5},
+    {7,0.5,-1}
+  }};
+  std::array<std::array<double,3>,6> anglesBack = {{
+    {7,1,1},
+    {7.5,1,2.5},
+    {7.5,1,4},
+    {7.5,1,2.5},
+    {7,1,1},
+    {6.5,1,-3}
+  }};
   delay(100);
-
-
-  int j = 2,leg=server.arg("leg").toInt();
-  while (j != 0)
-  {
-    j--;
-    std::array<double, 3> angles;
-    for(int i=7;i>4;i--){
-      angles = InverseKinematicsLibrary::IK::getServosAngles(leg,6,0.5f,i);
-      delay(300);
-      /* Moves the FR Leg */
-      QuadLibrary::Quad::setServo(leg+1, angles[0]);
-      QuadLibrary::Quad::setServo(leg+2, angles[1]);
-      QuadLibrary::Quad::setServo(leg+3, angles[2]);
+  int delayAmount=server.arg("delay").toInt();
+  delayAmount = delayAmount <100 ? 100: delayAmount>1000 ? 1000:delayAmount;
+  // New Way to move the robot
+  for(int i=0;i<2;i++){
+    int start = i*3;
+    int end = (i+1)*3;
+    for(int k=start;k<end;k++){
+      inverseKinematicsLeg(8,anglesFront[k][0],anglesFront[k][1],anglesFront[k][2]);
+      delay(delayAmount);
     }
-  
-    /* Get Angles for this position with the FR leg as reference*/
-    angles = InverseKinematicsLibrary::IK::getServosAngles(leg,6,0.5f,5);
-    delay(300);
-    /* Moves the FR Leg */
-    QuadLibrary::Quad::setServo(leg+1, angles[0]);
-    QuadLibrary::Quad::setServo(leg+2, angles[1]);
-    QuadLibrary::Quad::setServo(leg+3, angles[2]);
-
-
+    for(int k=start;k<end;k++){
+      inverseKinematicsLeg(12,anglesBack[k][0],anglesBack[k][1],anglesBack[k][2]);
+      delay(delayAmount);
+    }
+    for(int k=start;k<end;k++){
+      inverseKinematicsLeg(4,anglesFront[k][0],anglesFront[k][1],anglesFront[k][2]);
+      delay(delayAmount);
+    }
+    for(int k=start;k<end;k++){
+      inverseKinematicsLeg(0,anglesBack[k][0],anglesBack[k][1],anglesBack[k][2]);
+      delay(delayAmount);
+    }
   }
+  server.send(200, "text/plain", message); // Response to the HTTP request
 }

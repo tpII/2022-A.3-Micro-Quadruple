@@ -101,7 +101,7 @@ namespace QuadLibrary
     /* Default Dog Stance */
     void Quad::DogInitPosition()
     {
-        pwm.setPWM(BR1, 0, pulseWidth(85)); // BR1
+        pwm.setPWM(BR1, 0, pulseWidth(BR1_OFFSET+10)); // BR1
         pwm.setPWM(BR2, 0, pulseWidth(40)); // BR2
         pwm.setPWM(BR3, 0, pulseWidth(40)); // BR3
 
@@ -111,7 +111,7 @@ namespace QuadLibrary
         pwm.setPWM(FL3, 0, pulseWidth(130)); // FL3
 
         // pwm.setPWM(8, 0, pulseWidth(90));
-        pwm.setPWM(FR1, 0, pulseWidth(110)); // FR1
+        pwm.setPWM(FR1, 0, pulseWidth(FR1_OFFSET-10)); // FR1
         pwm.setPWM(FR2, 0, pulseWidth(40)); // FR2
         pwm.setPWM(FR3, 0, pulseWidth(40)); // FR3
 
@@ -129,9 +129,9 @@ namespace QuadLibrary
      */
     void Quad::setServo(int servoId, int degree)
     {
-        Serial.print("Setting servo " + servoId);
-        Serial.print("to = " + clamp(servoId,degree));
-        Serial.print("|| w/o Clamp = " + degree);
+        // Serial.print("Setting servo " + servoId);
+        // Serial.print("to = " + clamp(servoId,degree));
+        // Serial.print("|| w/o Clamp = " + degree);
         pwm.setPWM(servoId, 0, pulseWidth(clamp(servoId,degree)));
     }
 
