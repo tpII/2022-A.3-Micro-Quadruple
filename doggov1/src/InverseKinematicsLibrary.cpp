@@ -3,7 +3,7 @@
 namespace InverseKinematicsLibrary
 {
 
-    std::array<double, 3> IK::getServosAngles(int leg, double x, double y, double z)
+    std::array<double, 3> IK::getServosAngles(int leg, double x, double y, double z, int debug)
     {
 
         double t1, t2, t3, r, b;
@@ -52,7 +52,16 @@ namespace InverseKinematicsLibrary
             angles[2] = default_servo_pos[leg + 3] + ((int)(t3 * 180.0 / M_PI) % 360);          
         }
         
-
+        if(debug){
+            Serial.println("-----------");
+            Serial.print("x,y,z = ");
+            Serial.print(x); Serial.print(", "); Serial.print(y); Serial.print(", "); Serial.println(z);
+            Serial.print("t1,t2,t3 = ");
+            Serial.print(t1); Serial.print(", "); Serial.print(t2); Serial.print(", ");Serial.println(t3);
+            Serial.print("angle1,angle2,angle3 = ");
+            Serial.print(angles[0]); Serial.print(", "); Serial.print(angles[1]); Serial.print(", "); Serial.println(angles[2]);
+            Serial.println("-----------");
+        }
         /* Returns the Angles in an Array */
         return angles;
     }
