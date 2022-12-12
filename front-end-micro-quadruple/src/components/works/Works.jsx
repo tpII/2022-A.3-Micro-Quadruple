@@ -19,29 +19,26 @@ export default function Works() {
             toast.current.show({ severity: 'error', summary: message, life: 2000 });
         }
     }
-    
-    const onClickWalk = async () => {
-        let response = await robotService.move();
+
+    const sendStatusCodeToToast = (response) => {
         const statusCode = response ? response : null;
         renderToast(statusCode);
     }
     
-    const onClickDogPosition = async () => {
-        let response = await robotService.dogPosition();
-        const statusCode = response ? response : null;
-        renderToast(statusCode);
+    const onClickWalk = () => {
+        robotService.move().then(response => sendStatusCodeToToast(response));
     }
     
-    const onClickUp = async () => {
-        let response = await robotService.getReferencePosition();
-        const statusCode = response ? response : null;
-        renderToast(statusCode);
+    const onClickDogPosition = () => {
+        robotService.dogPosition().then(response => sendStatusCodeToToast(response));
     }
     
-    const onClickLean = async () => {
-        let response = await robotService.leanFront();
-        const statusCode = response ? response : null;
-        renderToast(statusCode);
+    const onClickUp = () => {
+        robotService.getReferencePosition().then(response => sendStatusCodeToToast(response));
+    }
+    
+    const onClickLean = () => {
+        robotService.leanFront().then(response => sendStatusCodeToToast(response));
     }
 
     return <div className="works" id="works">
