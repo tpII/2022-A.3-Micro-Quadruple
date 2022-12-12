@@ -11,7 +11,6 @@ export default function Works() {
     const toast = useRef(null);
 
     const renderToast = (statusCode) => {
-        console.log(statusCode)
         const condition = statusCode && statusCode === 200;
         const message = statusCode && statusCode === 200 ? "El robot esta realizando el movimiento deseado" : "Hubo un problema a la hora de realizar el movimiento deseado"
         if (condition) {
@@ -23,25 +22,25 @@ export default function Works() {
     
     const onClickWalk = async () => {
         let response = await robotService.move();
-        const statusCode = response ? response.status : null;
+        const statusCode = response ? response : null;
         renderToast(statusCode);
     }
     
     const onClickDogPosition = async () => {
         let response = await robotService.dogPosition();
-        const statusCode = response ? response.status : null;
+        const statusCode = response ? response : null;
         renderToast(statusCode);
     }
     
     const onClickUp = async () => {
         let response = await robotService.getReferencePosition();
-        const statusCode = response ? response.status : null;
+        const statusCode = response ? response : null;
         renderToast(statusCode);
     }
     
     const onClickLean = async () => {
         let response = await robotService.leanFront();
-        const statusCode = response ? response.status : null;
+        const statusCode = response ? response : null;
         renderToast(statusCode);
     }
 
