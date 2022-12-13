@@ -32,6 +32,7 @@ void handleGenericArgs()
     message += server.arg(i) + "\n";     // Get the value of the parameter
   }
 
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/plain", message); // Response to the HTTP request
 }
 
@@ -43,6 +44,7 @@ void handleSetServo()
   { // Parameter not found
 
     message = "servo_id or angle not specified";
+    server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(500, "text / plain", message); // Returns the HTTP response
     return;
   }
@@ -57,6 +59,8 @@ void handleSetServo()
   int angle = server.arg("angle").toInt();
 
   QuadLibrary::Quad::setServo(servoId, angle);
+
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text / plain", message); // Returns the HTTP response
 }
 
@@ -75,6 +79,7 @@ void handleSetServov2()
     message += server.arg(i) + "\n";     // Get the value of the parameter
   }
 
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/plain", message); // Response to the HTTP request
 }
 
@@ -86,6 +91,7 @@ void handleGetServosAngles()
   if (server.arg("x") == "" || server.arg("y") == "" || server.arg("z") == "" || server.arg("leg") == "")
   {
     message = "Please provide x,y,z,leg";
+    server.sendHeader("Access-Control-Allow-Origin", "*");
     server.send(500, "text / plain", message); // Returns the HTTP response
     return;
   }
@@ -124,6 +130,7 @@ void handleGetServosAngles()
   QuadLibrary::Quad::setServo(leg + 2, angles[1]);
   QuadLibrary::Quad::setServo(leg + 3, angles[2]);
   
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text / plain", message); // Returns the HTTP response
 }
 
@@ -135,6 +142,8 @@ void handleReferencePosition()
   // x -> 7.98  y -> 0  z -> 2.05
   QuadLibrary::Quad::ReferencePosition();
   delay(500);
+
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/plain", message); // Response to the HTTP request
 }
 
@@ -157,6 +166,8 @@ void handleLeanFront()
   inverseKinematicsLeg(0,7.5,1,4);
   inverseKinematicsLeg(12,7.5,1,4);
   delay(100);
+
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/plain", message); // Response to the HTTP request
 }
 
@@ -169,6 +180,8 @@ void handleLeanBack()
   inverseKinematicsLeg(0,2,0.5,2);
   inverseKinematicsLeg(12,2,0.5,2);
   delay(100);
+
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/plain", message); // Response to the HTTP request
 }
 
@@ -215,5 +228,7 @@ void handleMovement()
       delay(delayAmount);
     }
   }
+
+  server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "text/plain", message); // Response to the HTTP request
 }
