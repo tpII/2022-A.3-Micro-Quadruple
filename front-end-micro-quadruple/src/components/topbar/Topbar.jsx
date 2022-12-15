@@ -8,7 +8,7 @@ export default function Topbar({menuOpen, setMenuOpen}) {
         <a href="#intro" className="logo">Home.</a>
 
         <div className="itemContainer">
-          <h5> https://github.com/tpII/2022-A.3-Micro-Quadruple </h5>
+          <a href="https://github.com/tpII/2022-A.3-Micro-Quadruple"> GitHub del Proyecto </a>
         </div>
 
         <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>

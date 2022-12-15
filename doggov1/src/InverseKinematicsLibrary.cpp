@@ -3,68 +3,65 @@
 namespace InverseKinematicsLibrary
 {
 
-    std::array<double, 3> IK::getServosAngles(int leg, double x, double y, double z)
+    std::array<double, 3> IK::getServosAngles(int leg, double x, double y, double z, int debug)
     {
-        /* Declare Array with 3 angles*/
-        std::array<double, 3> angles;
 
         double t1, t2, t3, r, b;
 
-        if ((x >= 0) && (y >= 0))
-        {
-            t1 = atan(y / x);
-        }
-        else if ((x <= 0) && (y <= 0))
-        {
-            t1 = M_PI + atan(y / x);
-        }
-        else if ((x > 0) && (y < 0))
-        {
-            t1 = 2 * M_PI - atan(y / x);
-        }
-        else
-            t1 = M_PI - atan(y / x);
+        t1 = atan(y / x);   // If X = 0 we cry
 
         r = sqrt(((x * x) + (y * y)) + ((z - L1) * (z - L1)));
 
-        t3 = acos((-(L2 * L2) - (L3 * L3) + (r * r)) / (2 * L2 * L3));
+        t3 = acos(((r * r) - (L2 * L2) - (L3 * L3)) / (2.0f * L2 * L3));
 
-        b = acos(((r * r) + (L2 * L2) - (L3 * L3)) / (2 * L2 * r));
+        b = acos(((r * r) + (L2 * L2) - (L3 * L3)) / (2.0f * L2 * r));
 
         t2 = atan((z - L1) / (sqrt((x * x) + (y * y)))) - b;
 
-        /* Conversion to Degrees */
-        angles[0] = t1 * 180.0 / M_PI;
-        ;
-        angles[1] = t2 * 180.0 / M_PI;
-        ;
-        angles[2] = t3 * 180.0 / M_PI;
-        ;
 
-        /* Angulos en el Primer cuadrante*/
-        if (angles[0] > 359)
-        {
-            angles[0] -= 360;
-        }
-        if (angles[1] > 359)
-        {
-            angles[1] -= 360;
-        }
-        if (angles[2] > 359)
-        {
-            angles[2] -= 360;
-        }
+        /* Default 90/90/90 positions */
+        std::array<double, 16> default_servo_pos = {
+            0, BR1_OFFSET, BR2_OFFSET, BR3_OFFSET,
+            0, FL1_OFFSET, FL2_OFFSET, FL3_OFFSET,
+            0, FR1_OFFSET, FR2_OFFSET, FR3_OFFSET,
+            0, BL1_OFFSET, BL2_OFFSET, BL3_OFFSET 
+        };
 
-        /* Default 90/90/90 position for the Servos - MOVE OUTSITE WHEN THIS WORKS */
-        // FR FL BR BL
-        std::array<double, 12> default_servo_pos = {110, 80, 90, 70, 70, 90, 80, 65, 90, 90, 120, 90};
-
-        /* First Angle has no deviation, ever */
-        for (size_t i = 1; i < 3; i++)
-        {
-            angles[i] += default_servo_pos[i + leg];
+        /* Result Array Converted to Degrees, limited from 0 to 360  */
+        std::array<double, 3> angles;
+        if(leg==0){
+            angles[0] = default_servo_pos[leg + 1] + ((int)(t1 * 180.0 / M_PI) % 360);
+            angles[1] = default_servo_pos[leg + 2] + ((int)(t2 * 180.0 / M_PI) % 360);
+            angles[2] = default_servo_pos[leg + 3] - ((int)(t3 * 180.0 / M_PI) % 360);
+        }
+        if((leg==8)){
+            angles[0] = default_servo_pos[leg + 1] - ((int)(t1 * 180.0 / M_PI) % 360);
+            angles[1] = default_servo_pos[leg + 2] + ((int)(t2 * 180.0 / M_PI) % 360);
+            angles[2] = default_servo_pos[leg + 3] - ((int)(t3 * 180.0 / M_PI) % 360);
         }
 
+        /* If we calculated for left legs, invert the angles */
+        if (leg == 4){
+            angles[0] = default_servo_pos[leg + 1] + ((int)(t1 * 180.0 / M_PI) % 360);
+            angles[1] = default_servo_pos[leg + 2] - ((int)(t2 * 180.0 / M_PI) % 360);
+            angles[2] = default_servo_pos[leg + 3] + ((int)(t3 * 180.0 / M_PI) % 360);          
+        }
+        if (leg ==  12){
+            angles[0] = default_servo_pos[leg + 1] - ((int)(t1 * 180.0 / M_PI) % 360);
+            angles[1] = default_servo_pos[leg + 2] - ((int)(t2 * 180.0 / M_PI) % 360);
+            angles[2] = default_servo_pos[leg + 3] + ((int)(t3 * 180.0 / M_PI) % 360);          
+        }
+        
+        if(debug){
+            Serial.println("-----------");
+            Serial.print("x,y,z = ");
+            Serial.print(x); Serial.print(", "); Serial.print(y); Serial.print(", "); Serial.println(z);
+            Serial.print("t1,t2,t3 = ");
+            Serial.print(t1); Serial.print(", "); Serial.print(t2); Serial.print(", ");Serial.println(t3);
+            Serial.print("angle1,angle2,angle3 = ");
+            Serial.print(angles[0]); Serial.print(", "); Serial.print(angles[1]); Serial.print(", "); Serial.println(angles[2]);
+            Serial.println("-----------");
+        }
         /* Returns the Angles in an Array */
         return angles;
     }
